@@ -8,22 +8,24 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
+#import the dataset and print it
 ```{r}
 input<-read.csv("shoes_dataset.csv")
 input
 ```
+#prints first and last of the dataset
 ```{r}
 head(input)
 tail(input)
 ```
-
+#used to show the summary of the database
 ```{r}
 summary(input)
 ```
-
+#scatterplot between sales and profit
 ```{r}
 plot(Sale,Profit)
 ```
 
-
+#data is downloaded from this website
+https://www.kaggle.com/datasets/kanteya/resale-dataset-jan-2018?resource=download
