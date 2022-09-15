@@ -1,0 +1,29 @@
+---
+title: "assignment-1"
+author: "shravan"
+date: "2022-09-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+input<-read.csv("shoes_dataset.csv")
+input
+```
+```{r}
+head(input)
+tail(input)
+```
+
+```{r}
+summary(input)
+```
+
+```{r}
+plot(Sale,Profit)
+```
+
+
