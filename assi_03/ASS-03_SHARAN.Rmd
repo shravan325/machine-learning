@@ -1,0 +1,117 @@
+---
+title: "ASS-03_sharan_shobani"
+author: "sharan_shobani"
+date: "2022-10-26"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r }
+library("dplyr")
+library("tidyr")
+library("ggplot2")
+library("rpart")
+library("caret")
+library("tidyverse")
+library("SnowballC")
+library('tinytex')
+library('FNN')
+library("dplyr")
+library("tidyr")
+library("reshape2")
+library("e1071")
+```
+
+
+
+```{r}
+rm(list=ls())
+bank = read.csv("C:/Users/suraj/Downloads/UniversalBank (1).csv")
+bank$Personal.Loan = as.factor(bank$Personal.Loan)
+bank$Online = as.factor(bank$Online)
+bank$CreditCard = as.factor(bank$CreditCard)
+set.seed(1)
+train.index <- sample(row.names(bank), 0.6*dim(bank)[1])  
+test.index <- setdiff(row.names(bank), train.index) 
+train.df <- bank[train.index, ]
+test.df <- bank[test.index, ]
+train <- bank[train.index, ]
+test = bank[train.index,]
+```
+
+```{r}
+melted.bank = melt(train,id=c("CreditCard","Personal.Loan"),variable= "Online")
+recast.bank=dcast(melted.bank,CreditCard+Personal.Loan~Online)
+recast.bank[,c(1:2,14)]
+
+```
+
+```{r}
+melted.bankc1 = melt(train,id=c("Personal.Loan"),variable = "Online")
+melted.bankc2 = melt(train,id=c("CreditCard"),variable = "Online")
+recast.bankc1=dcast(melted.bankc1,Personal.Loan~Online)
+recast.bankc2=dcast(melted.bankc2,CreditCard~Online)
+```
+
+```{r}
+Loanline=recast.bankc1[,c(1,13)]
+LoanCC = recast.bankc2[,c(1,14)]
+Loanline
+LoanCC
+```
+
+```{r}
+table(train[,c(14,10)])
+table(train[,c(13,10)])
+table(train[,c(10)])
+
+```
+
+```{r}
+probability1<-77/(77+198)
+probability1
+```
+
+```{r}
+probability2<-166/(166+109)
+probability2
+```
+
+
+```{r}
+probability3<-275/(275+2725)
+probability3
+```
+
+```{r}
+probability4<-801/(801+1924)
+probability4
+```
+
+```{r}
+probability5<-1588/(1588+1137)
+probability5
+```
+
+```{r}
+probability6<-2725/(2725+275)
+probability6
+```
+
+```{r}
+(probability1*probability2*probability3)/((probability1*probability2*probability3)+(probability4*probability5*probability6))
+```
+
+```{r}
+naive.train = train.df[,c(10,13:14)]
+naive.test = test.df[,c(10,13:14)]
+naivebayes = naiveBayes(Personal.Loan~.,data=naive.train)
+naivebayes
+
+```
+
+
